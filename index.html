@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Testing</title>
+	<style>
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+		
+		label {
+			font-size: 1.2em;
+			margin-right: 1em;
+		}
+		
+		input[type="text"] {
+			padding: 10px;
+			border: 2px solid #ccc;
+			border-radius: 5px;
+			font-size: 1.2em;
+			width: 300px;
+		}
+		
+		button {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 1.2em;
+		}
+		
+		button:hover {
+			background-color: #3e8e41;
+		}
+		
+		button:active {
+			background-color: #3e8e41;
+			transform: translateY(1px);
+		}
+	</style>
+</head>
+<body>
+	<label for="search">Enter Your txnuuid:</label>
+	<input type="text" id="search" name="search"><br><br>
+	<button onclick="redirect()">Redirect</button>
+
+	<script>
+		function redirect() {
+			var redirectValue = document.getElementById("search").value;
+			if (redirectValue.trim() === '') {
+				window.location.href = "https://sandbox.juspay.in/v2/pay/response/vodaidea/";
+			} else {
+				window.location.href = "https://sandbox.juspay.in/v2/pay/response/vodaidea/" + redirectValue;
+			}
+		}
+	</script>
+</body>
+</html>
