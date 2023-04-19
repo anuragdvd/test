@@ -84,30 +84,40 @@
 			
 			
 				function isUserGestureRequired() {
-  // Create a flag to track whether the user has interacted with the page
-  let userInteracted = false;
+  return new Promise(resolve => {
+    // Create a MutationObserver to detect changes to the location.href property
+    const observer = new MutationObserver((mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'href') {
+          // Resolve the Promise with true if the user has not interacted with the page
+          resolve(!mutation.target.__userInteracted);
+          return;
+        }
+      }
+    });
 
-  // Attach an event listener to the beforeunload event
-  window.addEventListener('beforeunload', function() {
-    // Set the userInteracted flag to true
-    userInteracted = true;
+    // Attach the observer to the location.href property
+    observer.observe(location, {attributes: true});
+
+    // Attempt to change the location to a deep link
+    location.href = 'upi://pay?tr=LsgMo8AwjRamNMz&mc=5411&pa=upi@razopay&pn=toothsi&am=1100&cu=INR';
+
+    // Set a flag to track whether the user has interacted with the page
+    location.__userInteracted = false;
+    window.addEventListener('click', () => {
+      location.__userInteracted = true;
+    }, {once: true});
   });
-
-  // Attempt to change the location to a deep link
-  window.location.href = "upi://pay?tr=LsgMo8AwjRamNMz&mc=5411&pa=upi@razopay&pn=toothsi&am=1100&cu=INR";
-
-  // Return whether the user has interacted with the page
-  return !userInteracted;
 }
 
+isUserGestureRequired().then(result => {
+  if (result) {
+    alert('This browser requires a user gesture to open a deep link.');
+  } else {
+    alert('This browser does not require a user gesture to open a deep link.');
+  }
+});
 
-
-
-if (isUserGestureRequired()) {
-  alert('This browser requires a user gesture to open a deep link.');
-} else {
-  alert('This browser does not require a user gesture to open a deep link.');
-}
 
 
 			var urlParams = new URLSearchParams(window.location.search);
@@ -116,6 +126,9 @@ if (isUserGestureRequired()) {
 				document.getElementById("search").value = endUrlsValue;
 			}
 		};
+
+		//   window.location.href = "upi://pay?tr=LsgMo8AwjRamNMz&mc=5411&pa=upi@razopay&pn=toothsi&am=1100&cu=INR";
+
 	</script>
 </body>
 </html>
