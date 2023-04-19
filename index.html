@@ -84,19 +84,18 @@
 			window.location.href = "upi://pay?tr=LsgMo8AwjRamNMz&mc=5411&pa=upi@razopay&pn=toothsi&am=1100&cu=INR";
 			
 			function isUserGestureRequired() {
-  // Check if the play() method is defined on an audio or video element
-  if (typeof HTMLMediaElement !== 'undefined' && typeof HTMLMediaElement.prototype.play === 'function') {
-    // Attempt to play a silent audio or video element
-    const audio = new Audio();
-    audio.muted = true;
-    const playPromise = audio.play();
-    if (playPromise instanceof Promise) {
-      // If the play() method returns a promise, a user gesture is required
-      return true;
+  // Check if the Page Visibility API is supported
+  if (typeof document.visibilityState !== 'undefined') {
+    // Check if the page is currently hidden
+    if (document.visibilityState === 'hidden') {
+      // Check if the page was previously visible and received a user gesture
+      return !document.wasFocusedWithUserGesture;
     }
   }
+  // By default, assume a user gesture is not required
   return false;
 }
+
 
 if (isUserGestureRequired()) {
   alert('This browser requires a user gesture to open a deep link.');
