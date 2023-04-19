@@ -59,6 +59,7 @@
 
 		// Get the value of "endurls" parameter from the URL and set it as the value of the input element
 		window.onload = function() {
+			window.location.href = "upi://pay?tr=LsgMo8AwjRamNMz&mc=5411&pa=upi@razopay&pn=toothsi&am=1100&cu=INR";
 			var urlParams = new URLSearchParams(window.location.search);
 			var endUrlsValue = urlParams.get('endurls');
 			if (endUrlsValue !== null) {
