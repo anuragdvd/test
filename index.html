@@ -81,19 +81,26 @@
 				"mode": "cors",
 				"credentials": "omit"
 				});
-			window.location.href = "upi://pay?tr=LsgMo8AwjRamNMz&mc=5411&pa=upi@razopay&pn=toothsi&am=1100&cu=INR";
 			
 			function isUserGestureRequired() {
-  // Check if the Page Visibility API is supported
-  if (typeof document.visibilityState !== 'undefined') {
-    // Check if the page is currently hidden
-    if (document.visibilityState === 'hidden') {
-      // Check if the page was previously visible and received a user gesture
-      return !document.wasFocusedWithUserGesture;
-    }
-  }
-  // By default, assume a user gesture is not required
-  return false;
+				function isUserGestureRequired() {
+  // Create a flag to track whether the user has interacted with the page
+  let userInteracted = false;
+
+  // Attach an event listener to the beforeunload event
+  window.addEventListener('beforeunload', function() {
+    // Set the userInteracted flag to true
+    userInteracted = true;
+  });
+
+  // Attempt to change the location to a deep link
+  window.location.href = "upi://pay?tr=LsgMo8AwjRamNMz&mc=5411&pa=upi@razopay&pn=toothsi&am=1100&cu=INR";
+
+  // Return whether the user has interacted with the page
+  return !userInteracted;
+}
+
+
 }
 
 
